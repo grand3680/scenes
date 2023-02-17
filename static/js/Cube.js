@@ -1,3 +1,5 @@
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -17,27 +19,26 @@ PointLight.position.set(5, 5, 5);
 scene.add(PointLight);
 
 camera.position.z = 5;
-
 var countX = 0.01;
-var startPost = cube.position.x;
+
 
 let LOADING_MANAGER;
-var OBJ_LOADER = new THREE.OBJLoader(LOADING_MANAGER);
 var object;
 
 const loader = new OBJLoader();
 
-function loadModel() {
-    OBJ_LOADER.load('./models/Tree.obj', (object) => {
-        object.scale.x = 0.3;
-        object.scale.y = 0.3;
-        object.scale.z = 0.3;
-        object.rotation.x = -Math.PI / 2;
-        object.position.y = -30;
-
-        scene.add(OBJ_LOADER);
-    });
-}
+loader.load(
+    './models/Tree.obj',
+    function ( object ) {
+        scene.add( object );
+    },
+    function ( xhr ) {
+        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    },
+    function ( error ) {
+        console.log( 'An error happened' );
+    }
+);
 
 
 function animate() {
@@ -60,3 +61,4 @@ function animate() {
 	renderer.render( scene, camera );
 }
 animate();
+
