@@ -1,4 +1,4 @@
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+// import { OBJLoader } from './lib/OBJLoader.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -23,10 +23,9 @@ var countX = 0.01;
 
 
 let LOADING_MANAGER;
-var object;
+let object;
 
 const loader = new OBJLoader();
-
 loader.load(
     './models/Tree.obj',
     function ( object ) {
@@ -61,4 +60,3 @@ function animate() {
 	renderer.render( scene, camera );
 }
 animate();
-
